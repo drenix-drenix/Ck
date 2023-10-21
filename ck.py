@@ -1,7 +1,6 @@
 import asyncio
 import regex as re
 from telethon import TelegramClient, events
-from telethon.tl.functions.channels import JoinChannelRequest
 
 api_id = 23652918  # ваш апи айди
 api_hash = 'fdfefb9dde5b0edd59d349b64901dc3a'  # ваш апи ключ
@@ -9,7 +8,7 @@ api_hash = 'fdfefb9dde5b0edd59d349b64901dc3a'  # ваш апи ключ
 client = TelegramClient(session='session', api_id=api_id, api_hash=api_hash, system_version="4.16.30-vxSOSYNXA ")
 client.start()
 
-code_regex = re.compile(r"t\.me/wallet\?start=(CQ[A-Za-z0-9]{10}|C-[A-Za-z0.9]{10}|t_[A-Za-z0-9]{15}|[A-Za-z]{12})", re.IGNORECASE)
+code_regex = re.compile(r"t\.me/wallet\?start=(CQ[A-Za-z0-9]{10}|C-[A-Za-z0-9]{10}|t_[A-Za-z0-9]{15}|[A-Za-z]{12})", re.IGNORECASE)
 
 replace_chars = ''' @#&+()*"'…;,!№•—–·±<{>}†★‡„“”«»‚‘’‹›¡¿‽~`|√π÷×§∆\\°^%©®™✓₤$₼€₸₾₶฿₳₥₦₫₿¤₲₩₮¥₽₻₷₱₧£₨¢₠₣₢₺₵₡₹₴₯₰₪'''
 translation = str.maketrans('', '', replace_chars)
@@ -22,7 +21,7 @@ async def subscribe_and_activate_code(bot_name, code):
     
     # Подписываемся на канал
     await client(JoinChannelRequest(channel_info))
-
+    
     # Активируем чек
     await client.send_message(bot_name, message=f'/start {code}')
 
